@@ -1,51 +1,56 @@
 package L4;
 
 import java.util.Scanner;
- import java.util.Stack;
-public class Counter{
+import java.util.Stack;
+public class Four{
     private Stack<Character> priStack = new Stack<Character>();// 操作符栈
     private Stack<Double> numStack = new Stack<Double>();// 操作数栈
 
     public double caculate() {
-        Scanner sc=new Scanner(System.in);
+        Scanner sc=new Scanner(System.in
+
+        );
         String str = sc.nextLine();
         String temp;// 用来临时存放读取的字符
         StringBuffer tempNum = new StringBuffer();// 用来临时存放数字字符串(当为多位数时)
-        StringBuffer string = new StringBuffer().append(str);
+        StringBuffer string = new StringBuffer().append(str);// 用来保存，提高效率
+
         while (string.length() != 0) {
             temp = string.substring(0, 1);
             string.delete(0, 1);
             // 判断temp，当temp为操作符时
             if (!isNum(temp)) {
+                // 1.此时的tempNum内即为需要操作的数，取出数，压栈，并且清空tempNum
                 if (!"".equals(tempNum.toString())) {
+                    // 当表达式的第一个符号为括号
                     double num = Integer.parseInt(tempNum.toString());
-                    numStack.push(num);
+                    numStack.push((double) num);
                     tempNum.delete(0, tempNum.length());
                 }
 
 
                 // 判断当前运算符与栈顶元素优先级，取出元素，进行计算(因为优先级可能小于栈顶元素，还小于第二个元素等等，需要用循环判断)
                 while (!compare(temp.charAt(0)) && (!priStack.empty())) {
-                     double a = numStack.pop();// 第二个运算数
-                    double b =  numStack.pop();// 第一个运算数
+                    double a = (double) numStack.pop();// 第二个运算数
+                    double b = (double) numStack.pop();// 第一个运算数
                     char ope = priStack.pop();
                     double result = 0;// 运算结果
                     switch (ope) {
                         // 如8 jk8jk加号或者减号，则jk
-                          case '+':
+                        case '+':
                             result = b + a;
                             // 将操作结果放入操作数栈
-                            numStack.push(result);
+                            numStack.push( result);
                             break;
                         case '-':
                             result = b - a;
                             // 将操作结果放入操作数栈
-                            numStack.push( result);
+                            numStack.push(result);
                             break;
                         case '*':
                             result = b * a;
                             // 将操作结果放入操作数栈
-                            numStack.push( result);
+                            numStack.push(result);
                             break;
                         case '/':
                             try {
@@ -84,7 +89,7 @@ public class Counter{
             // 当为空时，显然 当前优先级最低，返回高
             return true;
         }
-        char last =  priStack.lastElement();
+        char last = (char) priStack.lastElement();
         // 如果栈顶为'('显然，优先级最低，')'不可能为栈顶。
         if (last == '(') {
             return true;
@@ -122,8 +127,9 @@ public class Counter{
 
     public static void main(String args[]) {
         System.out.println("请输入算式：");
-      Counter counter= new Counter();
+        Four counter= new Four();
         double t = counter.caculate();
         System.out.println("答案是"+t);
     }
 }
+

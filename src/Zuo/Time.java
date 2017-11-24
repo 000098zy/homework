@@ -16,13 +16,13 @@ public class Time {
         int min = second%3600/60;
         int sec =  second%60;
         if ((1970+year) % 4 == 0 && (1970+year) % 100!= 0||(year+1970) % 400 == 0){
-            for (int i = 0;i < arr.length;i++){
-                if (day <= arr[i]) {
-                    month = i+1;
-                    break;
+                for (int i = 0;i < arr.length;i++){
+                    if (day <= arr[i]) {
+                        month = i+1;
+                        break;
+                    }
+                    day -= ar[i];
                 }
-                day -= ar[i];
-            }
         }else {
             for (int i = 0; i < ar.length; i++) {
                 if (day <= ar[i]) {
